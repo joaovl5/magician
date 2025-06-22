@@ -1,0 +1,51 @@
+wizard:
+  root: # pane management settings
+    backend: kitty
+    mode: tabbed
+    nested: # nested, child pane management settings
+      backend:
+        name: tmux
+        options:
+          start_count_at_zero: false # pane numbers will start counting at 1
+      mode: tabbed
+
+project:
+  name: hydra-dev # name of project, will be used in cli, like "wizard open hydra-dev"
+  description: Hydra Development
+  dir: ~/code/work/space/asc/ # default working directory root for commands and settings
+  setup:
+    hydra_code: # 1st kitty pane in this case
+      # specifies we'll use nested logic for this window instead of just using it
+      nested: true
+      run: # default commands that will run for pane, or in this case every child pane
+        - nvim .
+      panes:
+        backend: # 1st tmux tab in this case
+          dir: ./ASCConnectedAPI/
+          run: # runs *AFTER* parent commands (neovim in this case)
+            - echo "You successfully exited neovim!"
+        bom-service:
+          dir: ./hydra/on-hydra-bom/ # uses project dir as basis
+          run-before: # runs BEFORE parent commands
+            - echo "Starting BOM service in 1 second..."
+            - sleep 1
+        frontend:
+          dir: ./ASCConnectedClient/
+    hydra_run:
+      nested: true
+      panes:
+        backend:
+          dir: ./ASCConnectedAPI/
+          run:
+            - macro: activate-python-venv # special macro for detecting and activating virtual environment in directory
+            - ./start_server.sh local
+
+        bom-service:
+          dir: ./hydra/on-hydra-bom/
+          run:
+            - macro: activate-python-venv
+            - fastapi run api/app.py --port 8000 --host 0.0.0.0
+        frontend:
+          dir: ./ASCConnectedClient/
+          run:
+            - pnpm run start-local
