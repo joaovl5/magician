@@ -12,3 +12,4 @@ wheels/
 # Magician
 data
 test_data
+config.toml

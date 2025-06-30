@@ -1,1 +1,2 @@
+default_shell = "bash"
 data_folder = "./data/"

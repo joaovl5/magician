@@ -6,7 +6,7 @@ wizard:
       backend:
         name: tmux
         options:
-          start_count_at_zero: false # pane numbers will start counting at 1
+          start_count_at_one: true # pane numbers will start counting at 1
       mode: tabbed
 
 project:
@@ -37,13 +37,13 @@ project:
         backend:
           dir: ./ASCConnectedAPI/
           run:
-            - macro: activate-python-venv # special macro for detecting and activating virtual environment in directory
+            - macro: python-activate-venv # special macro for detecting and activating virtual environment in directory
             - ./start_server.sh local
 
         bom-service:
           dir: ./hydra/on-hydra-bom/
           run:
-            - macro: activate-python-venv
+            - macro: python-activate-venv
             - fastapi run api/app.py --port 8000 --host 0.0.0.0
         frontend:
           dir: ./ASCConnectedClient/

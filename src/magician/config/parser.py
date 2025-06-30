@@ -11,7 +11,7 @@ from pydantic_settings import (
 from magician.config.schema import MagicConfigSchema
 
 
-def read_config_file(file: Path) -> Type[MagicConfigSchema]:
+def parse_config_file(file: Path) -> MagicConfigSchema:
     class MagicConfig(MagicConfigSchema):
         model_config = SettingsConfigDict(yaml_file=file)
 

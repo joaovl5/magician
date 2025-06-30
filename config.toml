@@ -1,1 +1,2 @@
+default_shell = "fish"
 data_folder = "./data/"

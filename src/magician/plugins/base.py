@@ -4,6 +4,8 @@ from pathlib import Path
 from typing import List, Optional
 import attrs
 
+from settings import AppConfig
+
 
 class PluginLevel(Enum):
     ROOT = auto()  # can be root and child
@@ -16,21 +18,31 @@ class PluginInfo:
 
 
 class BasePlugin(ABC):
+    def __init__(self, app_cfg: AppConfig, *args, **kwargs) -> None:
+        self.app_cfg = app_cfg
+
     # methods for generating scripts, returning lists of plugin-specific commands
 
+    # in case any special commands are needed before and/or after initialization
     @abstractmethod
-    def create_pane(self, *, name: Optional[str], **kwargs) -> List[str]: ...
+    def pre_init(self, *_, **__) -> List[str]: ...
 
     @abstractmethod
-    def goto_dir(self, *, path: Path, **kwargs) -> List[str]: ...
+    def post_init(self, *_, **__) -> List[str]: ...
 
     @abstractmethod
-    def run_cmd(self, *, command: List[str], **kwargs) -> List[str]: ...
+    def create_pane(self, *, name: Optional[str], **__) -> List[str]: ...
+
+    @abstractmethod
+    def goto_dir(self, *, path: Path, **__) -> List[str]: ...
+
+    @abstractmethod
+    def run_cmd(self, *, command: List[str], **__) -> List[str]: ...
 
     # methods for managing scripts
 
     @abstractmethod
-    def write_script(self, *, name: str, contents: List[str], **kwargs) -> None: ...
+    def write_script(self, *, name: str, contents: List[str], **__) -> None: ...
 
     @abstractmethod
     def run_script(self, *, name: str) -> None: ...
@@ -39,7 +51,7 @@ class BasePlugin(ABC):
     def remove_script(self, *, name: str) -> None: ...
 
     @abstractmethod
-    def get_script_cmd(self, *, script_name: str, **kwargs) -> List[str]:
+    def get_script_cmd(self, *, script_name: str, **__) -> List[str]:
         """
         Returns (shell) command(s) required for executing plugin script
         """

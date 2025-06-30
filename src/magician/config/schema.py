@@ -1,12 +1,13 @@
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, DirectoryPath, Field
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource
 
 
 class MacroCommand(BaseModel):
     macro: str = Field(min_length=1)
+    options: Dict[str, Any] = Field(default_factory=dict)
 
 
 RunCommand = str | MacroCommand
