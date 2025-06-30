@@ -1,2 +1,4 @@
 default_shell = "bash"
+examples_folder = "./examples/"
+schemas_folder = "./schemas/"
 data_folder = "./data/"

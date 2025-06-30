@@ -1,51 +1,51 @@
 wizard:
   root: # pane management settings
     backend: kitty
-    mode: tabbed
     nested: # nested, child pane management settings
       backend:
         name: tmux
         options:
-          start_count_at_one: true # pane numbers will start counting at 1
-      mode: tabbed
+          # pane numbers will start counting at 0 as per tmux's defaults
+          # toggle this if your tmux configs make window indexes start at 1 instead of 0
+          start_count_at_one: true
 
 project:
-  name: hydra-dev # name of project, will be used in cli, like "wizard open hydra-dev"
-  description: Hydra Development
-  dir: ~/code/work/space/asc/ # default working directory root for commands and settings
+  # name: my-project
+  # description: This is my project and an optional field.
+  dir: ~/code/my-project/ # default working directory root for commands and settings
   setup:
-    hydra_code: # 1st kitty pane in this case
+    project_code: # 1st kitty pane in this case
       # specifies we'll use nested logic for this window instead of just using it
       nested: true
       run: # default commands that will run for pane, or in this case every child pane
         - nvim .
       panes:
         backend: # 1st tmux tab in this case
-          dir: ./ASCConnectedAPI/
+          dir: ./backend/
           run: # runs *AFTER* parent commands (neovim in this case)
             - echo "You successfully exited neovim!"
-        bom-service:
-          dir: ./hydra/on-hydra-bom/ # uses project dir as basis
+        notifications-service:
+          dir: ./notifications-service/ # uses project dir as basis
           run-before: # runs BEFORE parent commands
-            - echo "Starting BOM service in 1 second..."
+            - echo "Starting nvim in 1 second..."
             - sleep 1
         frontend:
-          dir: ./ASCConnectedClient/
-    hydra_run:
+          dir: ./frontend/
+    project_run:
       nested: true
       panes:
         backend:
-          dir: ./ASCConnectedAPI/
+          dir: ./backend/
           run:
             - macro: python-activate-venv # special macro for detecting and activating virtual environment in directory
             - ./start_server.sh local
 
-        bom-service:
-          dir: ./hydra/on-hydra-bom/
+        notifications-service:
+          dir: ./notifications-service/
           run:
             - macro: python-activate-venv
             - fastapi run api/app.py --port 8000 --host 0.0.0.0
         frontend:
-          dir: ./ASCConnectedClient/
+          dir: ./frontend/
           run:
             - pnpm run start-local

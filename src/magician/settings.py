@@ -30,6 +30,10 @@ class AppConfig(BaseSettings):
         default=ShellType.BASH,
         description="Default shell backend for command syntax",
     )
+    examples_folder: Path = Field(
+        default=Path("./examples/"),
+        description="Folder for schema storage.",
+    )
     schemas_folder: Path = Field(
         default=Path("./schemas/"),
         description="Folder for schema storage.",
