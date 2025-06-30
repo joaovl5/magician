@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Optional
 from magician.commands.wrapper import WrapperCommand
 from magician.macros.base import BaseMacro

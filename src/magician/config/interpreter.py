@@ -1,5 +1,4 @@
 from pathlib import Path
-import shlex
 from typing import Dict, List, Optional, Tuple, Type
 
 from loguru import logger
@@ -8,7 +7,6 @@ from magician.commands.shell import ShellCommand, ShellCommandOptions
 from magician.config.schema import (
     MacroCommand,
     MagicConfigSchema,
-    ProjectConfig,
     RunCommand,
     WizardBackendConfig,
     WizardBackendType,

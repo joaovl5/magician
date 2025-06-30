@@ -1,5 +1,5 @@
 import click
-from magician.config.interpreter import ConfigInterpreter, NotFoundException
+from magician.config.interpreter import ConfigInterpreter
 from magician.config.parser import parse_config_file
 from magician.settings import get_config
 

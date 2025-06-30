@@ -1,9 +1,9 @@
 from pathlib import Path
-from typing import List, Type
+from typing import List
 
 from magician.plugins.base import BasePlugin
 from magician.plugins.kitty import KittyPlugin
-from magician.plugins.tmux import TmuxPlugin, TmuxProjectConfig
+from magician.plugins.tmux import TmuxPlugin
 from magician.settings import AppConfig
 
 import pytest
