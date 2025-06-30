@@ -1,7 +1,7 @@
 from pathlib import Path
 import pytest
 
-from settings import AppConfig
+from magician.settings import AppConfig
 
 
 @pytest.fixture(scope="session")

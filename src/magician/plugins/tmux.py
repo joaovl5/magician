@@ -6,7 +6,7 @@ from typing import List, Optional
 import attrs
 
 from magician.utils.ensure_executable import ensure_executable
-from settings import AppConfig
+from magician.settings import AppConfig
 
 from ..utils.open import open_app
 from .base import BasePlugin

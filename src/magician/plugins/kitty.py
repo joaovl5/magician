@@ -3,7 +3,7 @@ import shlex
 from pathlib import Path
 from typing import List, Optional
 
-from settings import AppConfig
+from magician.settings import AppConfig
 
 from ..utils.open import open_app
 from .base import BasePlugin
@@ -57,6 +57,7 @@ class KittyPlugin(BasePlugin):
 
         return [
             "kitty",
+            "--detach",
             "--session",
             f"{script_path.resolve()}",
         ]

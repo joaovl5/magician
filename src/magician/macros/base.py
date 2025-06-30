@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from magician.commands.base import BaseCommand
 from magician.plugins.base import BasePlugin
-from settings import AppConfig
+from magician.settings import AppConfig
 
 
 class BaseMacro(ABC):

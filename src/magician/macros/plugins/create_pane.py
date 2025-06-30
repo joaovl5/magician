@@ -3,7 +3,7 @@ from typing import Optional
 from magician.commands.wrapper import WrapperCommand
 from magician.macros.base import BaseMacro
 from magician.plugins.base import BasePlugin
-from settings import AppConfig
+from magician.settings import AppConfig
 
 
 class CreatePaneMacro(BaseMacro):

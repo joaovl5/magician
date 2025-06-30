@@ -4,7 +4,7 @@ from typing import List, Type
 from magician.plugins.base import BasePlugin
 from magician.plugins.kitty import KittyPlugin
 from magician.plugins.tmux import TmuxPlugin, TmuxProjectConfig
-from settings import AppConfig
+from magician.settings import AppConfig
 
 import pytest
 

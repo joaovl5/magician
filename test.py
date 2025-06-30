@@ -4,7 +4,7 @@ import sys
 from loguru import logger
 from magician.config.interpreter import ConfigInterpreter
 from magician.config.parser import parse_config_file
-from settings import get_config
+from magician.settings import get_config
 
 
 def main():
@@ -15,8 +15,9 @@ def main():
     logger.remove()
     logger.add(sys.stderr, level="TRACE")
 
-    intr.compile(config=magic_cfg)
-    # intr.run(config=magic_cfg)
+    name = "test"
+    intr.compile(config=magic_cfg, schema_name=name)
+    # intr.run(config=magic_cfg, schema_name=name)
 
 
 if __name__ == "__main__":

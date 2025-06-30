@@ -21,7 +21,7 @@ from magician.macros.shell.goto_dir import GotoDirectoryMacro
 from magician.plugins.base import BasePlugin
 from magician.plugins.kitty import KittyPlugin
 from magician.plugins.tmux import TmuxPlugin
-from settings import AppConfig
+from magician.settings import AppConfig
 import functools
 
 ROOT_PLUGINS = {
@@ -119,7 +119,7 @@ class ConfigInterpreter:
                 processed_cmds.append(raw_cmd)
         return processed_cmds
 
-    def compile(self, config: MagicConfigSchema) -> None:
+    def compile(self, config: MagicConfigSchema, schema_name: str) -> None:
         root_plugin, nested_plugin = self.setup_plugins(config=config.wizard)
         logger.trace("Starting config compilation")
         logger.trace(
@@ -127,7 +127,6 @@ class ConfigInterpreter:
         )
 
         project = config.project
-        project_name = project.name
         project_dir = project.dir  # base dir will serve as root of project
 
         root_script_cmds = []
@@ -243,7 +242,7 @@ class ConfigInterpreter:
 
             child_script_cmds.extend(nested_plugin.post_init())
 
-            child_script_name = f"{project_name}_{root_pane_name}"
+            child_script_name = f"{schema_name}_{root_pane_name}"
             nested_plugin.write_script(
                 name=child_script_name, contents=child_script_cmds
             )
@@ -262,10 +261,9 @@ class ConfigInterpreter:
 
         root_script_cmds.extend(root_plugin.post_init())
 
-        root_script_name = f"{project_name}"
+        root_script_name = f"{schema_name}"
         root_plugin.write_script(name=root_script_name, contents=root_script_cmds)
 
-    def run(self, config: MagicConfigSchema) -> None:
+    def run(self, config: MagicConfigSchema, schema_name: str) -> None:
         root_plugin, _ = self.setup_plugins(config=config.wizard)
-        root_script_name = f"{config.project.name}"
-        root_plugin.run_script(name=root_script_name)
+        root_plugin.run_script(name=schema_name)

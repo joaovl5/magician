@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Optional
 import attrs
 
-from settings import AppConfig
+from magician.settings import AppConfig
 
 
 class PluginLevel(Enum):

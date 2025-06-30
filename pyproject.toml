@@ -6,29 +6,26 @@ readme = "README.md"
 authors = [{ name = "João Leão", email = "vieiraleao2005@gmail.com" }]
 requires-python = ">=3.12"
 dependencies = [
-    "attrs>=25.3.0",
-    "loguru>=0.7.3",
-    "pydantic>=2.11.7",
-    "pydantic-settings[yaml]>=2.9.1",
-    "pytest>=8.4.1",
+  "attrs>=25.3.0",
+  "click>=8.2.1",
+  "loguru>=0.7.3",
+  "pydantic>=2.11.7",
+  "pydantic-settings[yaml]>=2.9.1",
+  "pytest>=8.4.1",
 ]
 
 [project.scripts]
-magician = "magician:main"
+magic = "magician.init:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-dev = [
-    "ipython>=9.3.0",
-]
+dev = ["ipython>=9.3.0"]
 
 [tool.pytest.ini_options]
 console_output_style = "progress"
 pythonpath = "."
 addopts = "-rA -q"
-testpaths = [
-  "tests"
-]
+testpaths = ["tests"]

@@ -26,7 +26,7 @@ class RootPaneEntry(PaneEntry):
 
 
 class ProjectConfig(BaseModel):
-    name: str = Field(min_length=1)
+    name: Optional[str] = None
     description: Optional[str] = None
     dir: Optional[Path] = None
     setup: Dict[str, RootPaneEntry] = Field(min_length=1)
@@ -48,7 +48,7 @@ class WizardMode(Enum):
 
 class PaneConfig(BaseModel):
     backend: WizardBackendType | WizardBackendConfig
-    mode: WizardMode
+    mode: WizardMode = Field(default=WizardMode.TABBED)
 
 
 class RootPaneConfig(PaneConfig):
