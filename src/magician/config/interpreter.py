@@ -7,6 +7,8 @@ from magician.commands.shell import ShellCommand, ShellCommandOptions
 from magician.config.schema import (
     MacroCommand,
     MagicConfigSchema,
+    PaneEntry,
+    RootPaneEntry,
     RunCommand,
     WizardBackendConfig,
     WizardBackendType,
@@ -130,6 +132,9 @@ class ConfigInterpreter:
         root_script_cmds = []
         root_script_cmds.extend(root_plugin.pre_init())
         for root_pane_name, root_pane_data in project.setup.items():
+            if not root_pane_data:
+                root_pane_data = RootPaneEntry()
+
             raw_root_cmds: List[BaseCommand | BaseMacro] = []
             raw_root_cmds.append(
                 CreatePaneMacro(
@@ -160,7 +165,7 @@ class ConfigInterpreter:
                 raise InterpreterException("Root pane CANNOT have 'run-before' set.")
 
             root_run_cmds_factory = functools.partial(
-                self.gather_raw_commands, cmd_data=root_pane_data.run
+                self.gather_raw_commands, cmd_data=root_pane_data.run or []
             )
 
             if not root_pane_data.nested:
@@ -185,6 +190,9 @@ class ConfigInterpreter:
             child_script_cmds = []
             child_script_cmds.extend(nested_plugin.pre_init())
             for child_pane_name, child_pane_data in root_pane_data.panes.items():
+                if not child_pane_data:
+                    child_pane_data = PaneEntry()
+
                 raw_child_cmds: List[BaseCommand | BaseMacro] = []
                 raw_child_cmds.append(
                     CreatePaneMacro(
@@ -213,11 +221,11 @@ class ConfigInterpreter:
                     )
 
                 child_run_before_cmds = self.gather_raw_commands(
-                    cmd_data=child_pane_data.run_before,
+                    cmd_data=child_pane_data.run_before or [],
                     plugin=nested_plugin,
                 )
                 child_run_cmds = self.gather_raw_commands(
-                    cmd_data=child_pane_data.run,
+                    cmd_data=child_pane_data.run or [],
                     plugin=nested_plugin,
                 )
 

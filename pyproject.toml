@@ -9,6 +9,7 @@ dependencies = [
   "attrs>=25.3.0",
   "click>=8.2.1",
   "loguru>=0.7.3",
+  "platformdirs>=4.3.8",
   "pydantic>=2.11.7",
   "pydantic-settings[yaml]>=2.9.1",
   "pytest>=8.4.1",

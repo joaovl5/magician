@@ -17,6 +17,32 @@ def cli(): ...
     "schema",
     type=str,
 )
+def edit(schema: str):
+    """
+    Creates new schema based on a template.
+    """
+    app_cfg = get_config()
+    dst_path = app_cfg.schemas_folder / f"{schema}.yml"
+    if not dst_path.exists():
+        dst_path = app_cfg.schemas_folder / f"{schema}.yaml"
+    if not dst_path.exists():
+        click.echo(
+            click.style(
+                f"Schema under the name '{schema}' does not exist in {dst_path}",
+                fg="red",
+            )
+        )
+        raise click.Abort()
+
+    editor = os.environ.get("EDITOR", "nano")
+    subprocess.call([editor, dst_path.resolve()])
+
+
+@cli.command()
+@click.argument(
+    "schema",
+    type=str,
+)
 @click.option(
     "--empty",
     "-e",

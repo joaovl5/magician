@@ -15,21 +15,23 @@ RunCommand = str | MacroCommand
 
 class PaneEntry(BaseModel):
     dir: Optional[Path] = None
-    run: List[RunCommand] = Field(default_factory=list)
-    run_before: List[RunCommand] = Field(default_factory=list, alias="run-before")
+    run: Optional[List[RunCommand]] = Field(default_factory=list)
+    run_before: Optional[List[RunCommand]] = Field(
+        default_factory=list, alias="run-before"
+    )
 
 
 class RootPaneEntry(PaneEntry):
     nested: bool = False
-    run: List[RunCommand] = Field(default_factory=list)
-    panes: Optional[Dict[str, PaneEntry]] = None
+    run: Optional[List[RunCommand]] = Field(default_factory=list)
+    panes: Optional[Dict[str, Optional[PaneEntry]]] = None
 
 
 class ProjectConfig(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     dir: Optional[Path] = None
-    setup: Dict[str, RootPaneEntry] = Field(min_length=1)
+    setup: Dict[str, Optional[RootPaneEntry]] = Field(min_length=1)
 
 
 class WizardBackendType(Enum):
