@@ -1,4 +1,0 @@
-default_shell = "fish"
-examples_folder = "./examples/"
-schemas_folder = "./schemas/"
-data_folder = "./data/"
