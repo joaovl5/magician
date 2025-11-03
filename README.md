@@ -21,7 +21,8 @@ In Magic, we'd use the following config for such setup:
 
 <details open>
 <summary>Open for seeing example YAML</summary>
-<code>
+
+```yaml
 wizard:
   root: # pane management settings
     backend: kitty
@@ -72,7 +73,8 @@ project:
           run:
             - macro: python-activate-venv
             - fastapi run api/app.py --port 8000 --host 0.0.0.0
-</code>
+```
+
 </details>
 
 ## Disclaimer 
