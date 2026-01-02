@@ -1,12 +1,9 @@
 from pathlib import Path
 from typing import Optional
-
 from loguru import logger
-
 from magician.commands.shell import ShellCommand
 from magician.plugins.base import BasePlugin
 from magician.settings import AppConfig, ShellType
-
 from ..base import BaseMacro
 
 

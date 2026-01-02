@@ -13,6 +13,7 @@ def main():
     magic_cfg = parse_config_file(file=Path("./draft.yml"))
 
     logger.remove()
+
     logger.add(sys.stderr, level="TRACE")
 
     name = "test"

@@ -2,6 +2,8 @@
 Deals with app config itself.
 """
 
+
+
 from enum import Enum
 import shutil
 import os
@@ -12,7 +14,7 @@ from pydantic import Field
 from pydantic_settings import (
     BaseSettings,
     PydanticBaseSettingsSource,
-    SettingsConfigDict,
+     SettingsConfigDict,
     TomlConfigSettingsSource,
 )
 
@@ -23,12 +25,12 @@ ROOT_FOLDER = Path(__file__).parent.parent.parent.resolve()
 CONFIG_FILE_PATH = ROOT_FOLDER / "./config.toml"
 SAMPLE_CONFIG_FILE_PATH = ROOT_FOLDER / "./config.sample.toml"
 
+a
 
 class ShellType(Enum):
     BASH = "bash"
     ZSH = "zsh"
     FISH = "fish"
-
 
 class AppConfig(BaseSettings):
     default_shell: ShellType = Field(

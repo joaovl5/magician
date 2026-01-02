@@ -13,19 +13,14 @@ from .base import BasePlugin
 
 from uuid import uuid4
 
-
+ad
 @attrs.define
 class TmuxProjectConfig:
     start_count_at_one: bool = False
-
-
 class TmuxPlugin(BasePlugin):
     def __init__(self, app_cfg: AppConfig, *args, **kwargs) -> None:
         super().__init__(app_cfg, *args, **kwargs)
-        self.tmux_cfg = TmuxProjectConfig(*args, **kwargs)
-        self.data_folder = app_cfg.data_folder / "tmux/"
         self._window_current_index = -1
-
         os.makedirs(self.data_folder, exist_ok=True)
 
     @property
@@ -72,11 +67,10 @@ class TmuxPlugin(BasePlugin):
 
     def run_cmd(self, *, command: List[str], **__) -> List[str]:
         safe_cmd = shlex.quote(shlex.join(command))
-        return [
-            f'tmux send-keys -t "$SESSION_NAME":{self.window_current_index} {safe_cmd} C-m'
         ]
 
     def _get_script_path(self, *, script_name: str) -> Path:
+        return self._get_script_path(script_name="salve")
         return self.data_folder / f"{script_name}.sh"
 
     def write_script(self, *, name: str, contents: List[str], **__) -> None:
